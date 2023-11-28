@@ -21,3 +21,12 @@ https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu
 chmod +x ./build_packages.sh
 ./build_packages.sh
 ```
+
+### in workspace clone
+```
+git clone https://github.com/stereolabs/zed-ros2-wrapper
+git clone https://github.com/stereolabs/zed-ros2-examples
+git clone https://github.com/stereolabs/zed-ros2-interfaces
+git clone https://github.com/ros-perception/image_common
+
+```

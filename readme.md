@@ -26,7 +26,7 @@ chmod +x ./build_packages.sh
 ```
 git clone https://github.com/stereolabs/zed-ros2-wrapper
 git clone https://github.com/stereolabs/zed-ros2-examples
-git clone https://github.com/stereolabs/zed-ros2-interfaces
+git clone https://github.com/stereolabs/zed-ros2-interface
 git clone https://github.com/ros-perception/image_common
-
+git clone https://gitlab.com/obr-a/integration/obr_msgs.git
 ```

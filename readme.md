@@ -32,5 +32,5 @@ git clone https://gitlab.com/obr-a/integration/obr_msgs.git
 ```
 
 ```
-https://file.io/VgwS3hNNVxBV
+https://filesender.deic.dk/?s=download&token=841a5ad9-34b5-4cf1-9896-0fd633edbdea
 ```

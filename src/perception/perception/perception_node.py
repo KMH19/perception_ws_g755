@@ -401,7 +401,7 @@ class VisionProcessor(Node):
 
         for bounding_box, cone_colour, display_colour in self.get_bounding_boxes_callable(colour_frame):
             # filter by height
-            if bounding_box.tl.y < colour_camera_info_msg.height / 2.5:
+            if bounding_box.tl.y < colour_camera_info_msg.height / 4:
                 print(bounding_box.tl.y, "<", colour_camera_info_msg.height / 2 )    
                 print("sorted box 1")
                 continue

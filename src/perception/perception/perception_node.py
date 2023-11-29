@@ -400,21 +400,21 @@ class VisionProcessor(Node):
         cone_array_msg.header = Header(frame_id="zed_left_camera_optical_frame", stamp=self.get_clock().now().to_msg())
 
         for bounding_box, cone_colour, display_colour in self.get_bounding_boxes_callable(colour_frame):
-            # filter by height
-            if bounding_box.tl.y < colour_camera_info_msg.height / 4:
-                print(bounding_box.tl.y, "<", colour_camera_info_msg.height / 2 )    
-                print("sorted box 1")
-                continue
-            # filter on area
-            if bounding_box.area < 10:
-                print("sorted box 2")
+            # # filter by height
+            # if bounding_box.tl.y < colour_camera_info_msg.height / 2.5:
+            #     print(bounding_box.tl.y, "<", colour_camera_info_msg.height / 4 )    
+            #     print("sorted box 1")
+            #     continue
+            # # filter on area
+            # if bounding_box.area < 10:
+            #     print("sorted box 2")
 
-                continue
-            # filter by aspect ratio
-            if bounding_box.aspect_ratio < 0.4 or bounding_box.aspect_ratio > 1.5:
-                print("sorted box 3")
+            #     continue
+            # # filter by aspect ratio
+            # if bounding_box.aspect_ratio < 0.4 or bounding_box.aspect_ratio > 1.5:
+            #     print("sorted box 3")
 
-                continue
+            #     continue
 
             result = cone_distance_and_position(bounding_box, depth_frame, depth_camera_info_msg, depth_confidence_frame)
             

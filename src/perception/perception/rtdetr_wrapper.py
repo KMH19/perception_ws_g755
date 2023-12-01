@@ -1,5 +1,5 @@
 import numpy as np
-from ultralytics import RTDETR
+from ultralytics import YOLO
 from ultralytics.engine.results import Results
 import torch
 import time
@@ -9,7 +9,7 @@ class RTdetrWrapper:
         """
         initialising function for the YOLOv8 PyTorch model with confidence threshold
         """
-        self.model = RTDETR(model_path)
+        self.model = YOLO(model_path)
         if model_path.endswith('.engine'):
             self.model.info(verbose=True, detailed=False)
         self.model.conf = conf_thresh

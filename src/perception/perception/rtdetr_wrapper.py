@@ -10,7 +10,7 @@ class RTdetrWrapper:
         initialising function for the YOLOv8 PyTorch model with confidence threshold
         """
         self.model = RTDETR(model_path)
-        if model_path.endswith('.pt'):
+        if model_path.endswith('.engine'):
             self.model.info(verbose=True, detailed=False)
         self.model.conf = conf_thresh
         self.secondary_conf = conf_thresh

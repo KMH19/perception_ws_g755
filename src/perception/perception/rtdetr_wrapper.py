@@ -24,7 +24,7 @@ class RTdetrWrapper:
         function for running inference on a single frame
         """
         #frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
-        frame_result: Results = self.model(colour_frame)
+        frame_result: Results = self.model(colour_frame)[0]
         detection_boxes = []
         if frame_result.boxes.xyxy.shape[0] == 0:
             return []

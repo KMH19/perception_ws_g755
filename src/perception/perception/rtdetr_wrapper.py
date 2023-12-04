@@ -24,7 +24,7 @@ class RTdetrWrapper:
         """
         #frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
         #Speed: 3.7ms preprocess, 50.6ms inference, 26.7ms postprocess per image at shape (1, 3, 640, 640)
-        frame_result: Results = self.model(colour_frame, verbose=verbose)[0]
+        frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz)[0]
         detection_boxes = []
         if frame_result.boxes.xyxy.shape[0] == 0:
             return []

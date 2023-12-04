@@ -9,20 +9,22 @@ class RTdetrWrapper:
         """
         initialising function for the YOLOv8 PyTorch model with confidence threshold
         """
-        self.model = model_path
+        self.model = YOLO("src/perception/models/working/yolov8n_cones.engine", task="detect")
+        print("model loaded")
         #self.model = YOLO(model_path, task='detect')
         #if model_path.endswith('.engine'):
         #    self.model.info(verbose=True, detailed=True)
         #self.model.conf = conf_thresh
         self.secondary_conf = conf_thresh
         self.imgsz = imgsz
+        torch.cuda.set_device(0)
 
     def inference(self, colour_frame: np.ndarray, verbose: bool = False):
         """
         function for running inference on a single frame
         """
         #frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
-        frame_result: Results = YOLO(self.model).predict(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
+        frame_result: Results = YOLO(self.model).predict(colour_frame)
         detection_boxes = []
         if frame_result.boxes.xyxy.shape[0] == 0:
             return []

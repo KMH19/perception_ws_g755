@@ -485,7 +485,7 @@ class VisionProcessor(Node):
             self.debug_img_publisher.publish(debug_msg)
 
 def main(args=None):    
-    MODEL_PATH = "src/perception/models/working/yolov8n_cones.engine"
+    MODEL_PATH = "./src/perception/models/working/yolov8n_cones.engine"
     
     CONFIDENCE = 0.70  # higher = tighter filter
     IMGSZ = 640 # Can be read in CameraInfo or set in common.yaml -> zed2

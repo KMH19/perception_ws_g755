@@ -9,10 +9,11 @@ class RTdetrWrapper:
         """
         initialising function for the YOLOv8 PyTorch model with confidence threshold
         """
-        self.model = YOLO(model_path)
-        if model_path.endswith('.engine'):
-            self.model.info(verbose=True, detailed=False)
-        self.model.conf = conf_thresh
+        self.model = model_path
+        #self.model = YOLO(model_path, task='detect')
+        #if model_path.endswith('.engine'):
+        #    self.model.info(verbose=True, detailed=True)
+        #self.model.conf = conf_thresh
         self.secondary_conf = conf_thresh
         self.imgsz = imgsz
 
@@ -20,8 +21,8 @@ class RTdetrWrapper:
         """
         function for running inference on a single frame
         """
-        frame_result: Results = self.model.predict(colour_frame, verbose=verbose, imgsz=self.imgsz)[0]
-
+        #frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
+        frame_result: Results = YOLO(self.model).predict(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
         detection_boxes = []
         if frame_result.boxes.xyxy.shape[0] == 0:
             return []

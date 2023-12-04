@@ -11,8 +11,8 @@ class RTdetrWrapper:
         """
         torch.cuda.set_device(0)
         self.model = YOLO(model_path, task="detect")
-        if model_path.endswith('.engine'):
-           self.model.info(verbose=True, detailed=True)
+        # if model_path.endswith('.engine'):
+        #    self.model.info(verbose=True, detailed=True)
            
         #self.model.conf = conf_thresh
         self.secondary_conf = conf_thresh

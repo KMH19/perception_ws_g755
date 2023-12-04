@@ -22,7 +22,7 @@ class RTdetrWrapper:
         """
         function for running inference on a single frame
         """
-        start_time = time.time()
+        # start_time = time.time()
         #frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz, device=0)[0]
         #Speed: 3.7ms preprocess, 50.6ms inference, 26.7ms postprocess per image at shape (1, 3, 640, 640)
         frame_result: Results = self.model(colour_frame, verbose=verbose, imgsz=self.imgsz)[0]
@@ -44,10 +44,10 @@ class RTdetrWrapper:
                 detection_boxes.append([class_id] + box)
                 
         # Calculate FPS
-        end_time = time.time()  # End time for FPS calculation
-        elapsed_time = end_time - start_time
-        fps = 1 / elapsed_time if elapsed_time > 0 else 0
+        # end_time = time.time()  # End time for FPS calculation
+        # elapsed_time = end_time - start_time
+        # fps = 1 / elapsed_time if elapsed_time > 0 else 0
 
-        print(f"FPS: {fps:.2f}")
+        # print(f"FPS: {fps:.2f}")
 
         return detection_boxes

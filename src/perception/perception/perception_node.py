@@ -257,7 +257,7 @@ class VisionProcessor(Node):
         super().__init__("vision_processor_node")
 
         # declare ros param for debug images
-        self.declare_parameter("debug_bbox", True)
+        self.declare_parameter("debug_bbox", False)
         self.declare_parameter("debug_depth", False)
         self.debug_bbox: bool = self.get_parameter("debug_bbox").value
         self.debug_depth: bool = self.get_parameter("debug_depth").value
@@ -347,7 +347,7 @@ class VisionProcessor(Node):
         # scale_rotation_rate = 1.0
         # msg.angular.z = scale_rotation_rate * math.atan2(
         #     t.transform.translation.y,
-        #     t.transform.translation.x)
+        #     t.transform.translation.x)Transform
 
         # scale_forward_speed = 0.5
         # msg.linear.x = scale_forward_speed * math.sqrt(
@@ -397,7 +397,7 @@ class VisionProcessor(Node):
         
         #detected_cones2: List[Cone2] = []
         cone_array_msg = ConeArray()  # Create a ConeArray message
-        cone_array_msg.header = Header(frame_id="zed_left_camera_optical_frame", stamp=self.get_clock().now().to_msg())
+        cone_array_msg.header = Header(frame_id="zed_left_camera_frame", stamp=self.get_clock().now().to_msg())
 
         for bounding_box, cone_colour, display_colour in self.get_bounding_boxes_callable(colour_frame):
             # # filter by height

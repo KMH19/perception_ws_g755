@@ -174,7 +174,7 @@ def cone_distance_and_position(bounding_box: Rect, depth_frame: np.ndarray, dept
         return float('nan'), (float('nan'), float('nan'), float('nan'))
     
     if np.any(np.isnan(confident_depths)) or np.any(np.isinf(confident_depths)):
-        print("Error: NaN value occurred after interpolation")
+        #print("Error: NaN value occurred after interpolation")
         return float('nan'), (float('nan'), float('nan'), float('nan'))
 
 
@@ -257,7 +257,7 @@ class VisionProcessor(Node):
         super().__init__("vision_processor_node")
 
         # declare ros param for debug images
-        self.declare_parameter("debug_bbox", False)
+        self.declare_parameter("debug_bbox", True)
         self.declare_parameter("debug_depth", False)
         self.debug_bbox: bool = self.get_parameter("debug_bbox").value
         self.debug_depth: bool = self.get_parameter("debug_depth").value

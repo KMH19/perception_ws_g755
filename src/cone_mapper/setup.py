@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'mapping_node = cone_mapper.mapping_node:main',
+            'mapping_node = cone_mapper.mapping_node_distance:main',
         ],
     },
 )

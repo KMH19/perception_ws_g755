@@ -122,7 +122,7 @@ class ConeAssociation(Node):
 
         self.declare_parameter('view_x', 10.0)
         self.declare_parameter('view_y', 10.0)
-        self.declare_parameter('radius', 0.4)
+        self.declare_parameter('radius', 0.8)
         self.declare_parameter('min_detections', 10)
 
         self.view_x = self.get_parameter('view_x').value

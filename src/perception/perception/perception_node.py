@@ -36,8 +36,8 @@ from .rtdetr_wrapper import RTdetrWrapper
 # translate ROS image messages to OpenCV
 cv_bridge = CvBridge()
 
-MAX_RANGE = 16  # m
-MIN_RANGE = 0.4  # m
+MAX_RANGE = 20  # m
+MIN_RANGE = 0.3  # m
 
 Colour = Tuple[int, int, int]
 
@@ -423,12 +423,17 @@ class VisionProcessor(Node):
                 continue  # Skip this iteration
             else:
                 distance, position = result
+                
+            if isnan(position[0]) or isnan(position[1]) or isnan(position[2]):
+                #print("NaN")
+                # Skip cones with NaN values in their position
+                continue
 
             bearing = cone_bearing(bounding_box, colour_camera_info_msg)
             
             #! Check if the cone is within the front-facing angle threshold, issues occur at edges of FOV
-            if abs(bearing) > 30: #deg
-                continue  
+            # if abs(bearing) > 30: #deg
+            #     continue  
             
             # filter on distance
             if distance > MAX_RANGE or distance < MIN_RANGE:
@@ -441,6 +446,8 @@ class VisionProcessor(Node):
                 draw_box(colour_frame, box=bounding_box, colour=display_colour, distance=distance)
 
             self.get_logger().debug("Range: " + str(round(distance, 2)) + "\t Bearing: " + str(round(bearing, 2)))
+            
+ 
 
                 # Create a Label message
             label_msg = Label()
@@ -464,20 +471,30 @@ class VisionProcessor(Node):
             #     cone_array_msg.cones.append(transformed_cone_msg)
 
 
-        
-        # Create a ConeDetectionStamped message
-        detection_msg = ConeDetectionStamped(
-            header=Header(
-                frame_id="zed_left_camera_frame",
-                stamp=self.get_clock().now().to_msg()  # Assign a new timestamp
-            ),
-            cones=detected_cones,
-        )
-        self.detection_publisher.publish(detection_msg)
+        # Publish messages only if there are valid cones
+        if detected_cones:
+            detection_msg = ConeDetectionStamped(
+                header=Header(frame_id="zed_left_camera_frame", stamp=self.get_clock().now().to_msg()),
+                cones=detected_cones,
+            )
+            self.detection_publisher.publish(detection_msg)
+
+        if cone_array_msg.cones:
+            self.cone_array_publisher.publish(cone_array_msg)
+            
+        # # Create a ConeDetectionStamped message
+        # detection_msg = ConeDetectionStamped(
+        #     header=Header(
+        #         frame_id="zed_left_camera_frame",
+        #         stamp=self.get_clock().now().to_msg()  # Assign a new timestamp
+        #     ),
+        #     cones=detected_cones,
+        # )
+        # self.detection_publisher.publish(detection_msg)
 
 
-        # Publish the ConeArray message
-        self.cone_array_publisher.publish(cone_array_msg)
+        # # Publish the ConeArray message
+        # self.cone_array_publisher.publish(cone_array_msg)
 
         if self.debug_bbox:
             debug_msg = cv_bridge.cv2_to_imgmsg(colour_frame, encoding="bgr8")
